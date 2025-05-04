@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: Compilar el código
-        run: javac HolaMundo.java
+        run: javac hola-mundo.java
 
       - name: Ejecutar el programa
-        run: java HolaMundo
+        run: java hola-mundo
