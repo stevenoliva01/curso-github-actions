@@ -1,0 +1,25 @@
+name: Ejecutar Hola Mundo en Java
+
+on:
+    push:  # Se ejecuta en cualquier push sin importar la rama
+    pull_request:  # También se ejecutará al abrir un pull request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Compilar el código
+        run: javac HolaMundo.java
+
+      - name: Ejecutar el programa
+        run: java HolaMundo
