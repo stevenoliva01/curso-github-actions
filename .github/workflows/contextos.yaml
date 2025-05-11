@@ -1,0 +1,29 @@
+name: Contextos en Acción
+
+on:
+  workflow_dispatch:
+
+jobs:
+  demo-contexts:
+    runs-on: ubuntu-latest
+    env:
+      ENV_VAR: "valor_env"
+
+    steps:
+      - name: Mostrar contexto github
+        run: |
+          echo "Repositorio: ${{ github.repository }}"
+      
+      - name: Mostrar contexto env
+        run: |
+          echo "Variable de entorno: $ENV_VAR"
+      
+      - name: Mostrar contexto runner
+        run: |
+          echo "Sistema operativo: ${{ runner.os }}"
+      
+      - name: Usar un secreto
+        run: |
+          echo "Secreto: $MY_SECRET"
+        env:
+          MY_SECRET: ${{ secrets.MY_SECRET }}
