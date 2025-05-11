@@ -1,25 +1,20 @@
-name: Ejecutar Hola Mundo en Java
+name: Validate Age Input
 
 on:
-    push:  # Se ejecuta en cualquier push sin importar la rama
-    pull_request:  # También se ejecutará al abrir un pull request
+  workflow_dispatch:
+    inputs:
+      age:
+        description: 'Edad del usuario'
+        required: true
+        type: number
 
 jobs:
-  build:
+  validate-age:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Clonar el repositorio
-        uses: actions/checkout@v4
-
-      - name: Configurar Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Compilar el código
-        run: javac HolaMundo.java
-
-      - name: Ejecutar el programa
-        run: java HolaMundo
+      - name: Validar edad
+        if: ${{ github.event.inputs.age > 18 }}
+        run: echo "La edad ingresada es mayor a 18: ${{ github.event.inputs.age }}"
+      - name: Edad no válida
+        if: ${{ github.event.inputs.age <= 18 }}
+        run: echo "La edad ingresada no es válida: ${{ github.event.inputs.age }}"
