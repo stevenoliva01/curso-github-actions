@@ -13,8 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validar edad
-        if: ${{ github.event.inputs.age > 18 }}
-        run: echo "La edad ingresada es mayor a 18: ${{ github.event.inputs.age }}"
-      - name: Edad no válida
-        if: ${{ github.event.inputs.age <= 18 }}
-        run: echo "La edad ingresada no es válida: ${{ github.event.inputs.age }}"
+        run: |
+          if [ ${{ github.event.inputs.age }} -gt 18 ]; then
+            echo "La edad ingresada es mayor a 18: ${{ github.event.inputs.age }}"
+          else
+            echo "La edad ingresada no es válida: ${{ github.event.inputs.age }}"
+          fi
