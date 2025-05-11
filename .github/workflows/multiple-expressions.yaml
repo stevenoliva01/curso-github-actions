@@ -1,0 +1,41 @@
+name: Workflow con Expresiones
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Nombre de la rama'
+        required: true
+        type: string
+      deploy:
+        description: '¿Desplegar?'
+        required: true
+        type: boolean
+      version:
+        description: 'Versión del release'
+        required: true
+        type: string
+
+jobs:
+  validate-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validar rama
+        if: ${{ github.event.inputs.branch == 'main' }}
+        run: echo "La rama es main."
+
+      - name: Validar despliegue
+        run: |
+          if [[ "${{ github.event.inputs.deploy }}" == "true" ]]; then
+            echo "El despliegue está habilitado."
+          else
+            echo "El despliegue no está habilitado."
+          fi
+
+      - name: Validar versión
+        run: |
+          if [[ "${{ github.event.inputs.version }}" == v* ]]; then
+            echo "La versión comienza con 'v': ${{ github.event.inputs.version }}"
+          else
+            echo "La versión no comienza con 'v'."
+          fi
