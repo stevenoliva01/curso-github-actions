@@ -1,0 +1,21 @@
+name: Validate Age Input
+
+on:
+  workflow_dispatch:
+    inputs:
+      age:
+        description: 'Edad del usuario'
+        required: true
+        type: number
+
+jobs:
+  validate-age:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validar edad
+        run: |
+          if [ ${{ github.event.inputs.age }} -gt 18 ]; then
+            echo "La edad ingresada es mayor a 18: ${{ github.event.inputs.age }}"
+          else
+            echo "La edad ingresada no es válida: ${{ github.event.inputs.age }}"
+          fi
